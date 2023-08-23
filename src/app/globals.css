@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: FALight;
+  src: url('../assets/fonts/fa-light-300.woff2');
+}
+
+@font-face {
+  font-family: FARegular;
+  src: url('../assets/fonts/fa-regular-400.woff2');
+}
+
+@font-face {
+  font-family: FASolid;
+  src: url('../assets/fonts/fa-solid-900.woff2');
+}
+@font-face {
+  font-family: PN;
+  src: url('../assets/fonts/pn-regular2.ttf');
+}
+
+@font-face {
+  font-family: PNSemiBold;
+  src: url('../assets/fonts/pn_semibold_gdi.ttf');
+}
+
+@font-face {
+  font-family: SVN;
+  src: url('../assets/fonts/svn-veneer.woff');
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.swal2-container {
+  z-index: 9999999 !important;
+}
+
+body {
+  font-family: PN;
+}
