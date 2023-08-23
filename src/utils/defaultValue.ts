@@ -9,7 +9,7 @@ export const staticCategory = [
   },
   {
     categoryName: 'THEO DÕI ĐƠN HÀNG',
-    id: 'account/info',
+    id: '/account/info',
     children: [],
   },
   {
