@@ -3,9 +3,12 @@ import { useEffect, useState } from 'react';
 import { voucherAPI } from '~/api/voucherAPI';
 import Button from '../Button/Button';
 
-function Voucher() {
+interface Props {
+  vouchers: [];
+}
+
+function Voucher({ vouchers }: Props) {
   const [title, setTitle] = useState(['']);
-  const [vouchers, setVouchers] = useState([]);
 
   const handleCoppy = (data: string, index: number) => {
     navigator.clipboard.writeText(data);
@@ -17,14 +20,8 @@ function Voucher() {
   };
 
   useEffect(() => {
-    const getVoucher = async () => {
-      const res = await voucherAPI.getAllVoucher();
-      setVouchers(res.data.data);
-
-      setTitle(new Array(res.data.data.length).fill('Sao chép ngay'));
-    };
-    getVoucher();
-  }, []);
+    setTitle(new Array(vouchers.length).fill('Sao chép ngay'));
+  }, [vouchers]);
 
   return (
     <div className="flex mt-10 overflow-scroll md:overflow-auto md:flex-wrap gap-3 md:gap-0 justify-between mb-8">

@@ -23,8 +23,11 @@ export const productAPI = {
   getProductByCateID: (payload: { id: number; count: number }) => {
     return axiosClient.get('get-products-by-cate-id', { data: payload });
   },
-  filterProduct: (payload: any) => {
-    return axiosClient.post('/get-all-product-by-category', payload);
+  filterProduct: (payload: any, offset: number, limit: number) => {
+    return axiosClient.post(
+      `/get-all-product-by-category?limit=${limit}&offset=${offset}`,
+      payload,
+    );
   },
   getSearchProduct: (query: string) => {
     return axiosClient.get(`/search?q=${query}`);

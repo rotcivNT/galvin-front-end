@@ -14,7 +14,6 @@ const getCategory = async () => {
 async function Navbar() {
   const categoryList = await getCategory();
   const allCategory = [staticCategory[0], ...categoryList, ...staticCategory.slice(1)];
-
   return (
     <nav className="max-w-6xl mx-auto">
       <ul className="relative h-[50px] flex items-center justify-center">
@@ -22,7 +21,7 @@ async function Navbar() {
           <NavbarItem
             title={category.categoryName}
             childItems={category.children}
-            href={`${category.id}`}
+            href={`${typeof category.id == 'number' ? `/` : `${category.id}`}`}
             key={category.categoryName}
           />
         ))}

@@ -3,7 +3,7 @@ import Link from 'next/link';
 interface Props {
   totalPages: number;
   currentPage: number;
-  query: string;
+  query?: string;
 }
 function PaginationButton({ totalPages, currentPage, query }: Props) {
   const pageNumbers: any[] = [];
@@ -12,7 +12,6 @@ function PaginationButton({ totalPages, currentPage, query }: Props) {
     if (i > totalPages) break;
     pageNumbers.push(i);
   }
-
   return (
     <div className="flex items-center justify-center gap-4">
       <span className="px-5 text-sm py-2 cursor-pointer text-white bg-black font-[PNSemiBold]">
@@ -21,7 +20,7 @@ function PaginationButton({ totalPages, currentPage, query }: Props) {
       <div className="justify-center flex gap-1">
         {pageNumbers.map((number) => (
           <Link
-            href={`/search?q=${query}&page=${number}`}
+            href={query ? `/search?q=${query}&page=${number}` : `?page=${number}`}
             className={`${
               currentPage == number
                 ? 'text-white bg-[#FD014E]'

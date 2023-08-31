@@ -20,6 +20,8 @@ interface BaseInfoProps {
   selectedColor: any;
   setSelectedColor: (args: any) => void;
   children: React.ReactNode;
+  sizes: ColorSizeProps[];
+  colors: ColorSizeProps[];
 }
 
 enum TypeBtnQty {
@@ -27,10 +29,15 @@ enum TypeBtnQty {
   DESC,
 }
 
-function BaseInfo({ product, setSelectedColor, selectedColor, children }: BaseInfoProps) {
+function BaseInfo({
+  product,
+  setSelectedColor,
+  selectedColor,
+  sizes,
+  colors,
+  children,
+}: BaseInfoProps) {
   const session = useSession();
-  const [colorList, setColorList] = useState<any>([]);
-  const [sizeList, setSizeList] = useState<ColorSizeProps[]>();
   const [variants, setVariants] = useState<any>([]);
   const [quantity, setQuantity] = useState(0);
   const [selectedSize, setSelectedSize] = useState<ColorSizeProps>({
@@ -40,8 +47,8 @@ function BaseInfo({ product, setSelectedColor, selectedColor, children }: BaseIn
   const [err, setErr] = useState('');
   const { state, dispatch } = useAppContext();
   const getValueByColorID = (colorID: number) => {
-    const colorItem = colorList.find((item: ColorSizeProps) => item.id === colorID);
-    return colorItem?.value;
+    const colorItem = colors.find((item: ColorSizeProps) => item.id === colorID);
+    return colorItem?.value || '';
   };
 
   const handleClickColor = (colorID: number) => {
@@ -118,19 +125,6 @@ function BaseInfo({ product, setSelectedColor, selectedColor, children }: BaseIn
       );
   }, [product, selectedColor]);
 
-  useEffect(() => {
-    const fetchColorList = async () => {
-      const res = await productAPI.getAllColor();
-      setColorList(res.data.data);
-    };
-    const fetchSizeList = async () => {
-      const res = await productAPI.getAllSize();
-      setSizeList(res.data.data);
-    };
-    fetchColorList();
-    fetchSizeList();
-  }, []);
-
   return (
     <div className="lg:basis-5/12">
       <div className="pb-5">
@@ -181,8 +175,8 @@ function BaseInfo({ product, setSelectedColor, selectedColor, children }: BaseIn
         <div className="flex flex-wrap">
           <span className="text-sm text-[#757575] basis-2/12">Size</span>
           <ul className="flex items-center flex-wrap gap-3 basis-10/12">
-            {sizeList &&
-              sizeList.map((item: ColorSizeProps) => (
+            {sizes &&
+              sizes.map((item: ColorSizeProps) => (
                 <li key={item.id}>
                   <Button
                     containerStyles={

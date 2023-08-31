@@ -1,34 +1,31 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { useEffect, useState, Suspense, useContext } from 'react';
-import { productAPI } from '~/api/productAPI';
-import { mergeColorProducts } from '~/utils/mergeColorProduct';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '~/context/GlobalState';
+import { fetchComments } from '~/context/reducer/actions';
+import { ColorSizeProps, Comments } from '~/types';
+import { convertCommentStyle } from '~/utils/convertCommentStyle';
+import { db } from '~/utils/initFirebaseStore';
+import ServiceInfo from '../ServiceInfo/ServiceInfo';
 import BaseInfo from './BaseInfo';
 import GalleryDetail from './GalleryDetail';
-import SuggestSizeWrapper from '../SuggestSize/SuggestSizeWrapper';
-import ServiceInfo from '../ServiceInfo/ServiceInfo';
-import ProductDetailLoading from './ProductDetailLoading';
-import { Comments } from '~/types';
-import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
-import { db } from '~/utils/initFirebaseStore';
-import { convertCommentStyle } from '~/utils/convertCommentStyle';
-import { fetchComments } from '~/context/reducer/actions';
-import { AppContext } from '~/context/GlobalState';
 
-function ProductDetail({ id }: { id: string }) {
+interface Props {
+  productList: any;
+  id: number;
+  sizes: ColorSizeProps[];
+  colors: ColorSizeProps[];
+}
+
+function ProductDetail({ productList, id, colors, sizes }: Props) {
   const [product, setProduct] = useState<any>();
   const [selectedColor, setSelectedColor] = useState<any>([]);
   const { dispatch } = useContext(AppContext);
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await productAPI.getProductByID(+id);
-      const data = res.data.data;
-      data.Gallery = mergeColorProducts(data.Gallery);
-      data.Variant = mergeColorProducts(data.Variant);
-      setSelectedColor(data.Gallery[0]);
-      setProduct(data);
-    };
+    setSelectedColor(productList.Gallery[0]);
+    setProduct(productList);
     const fetchCommentList = async () => {
       let listComments: Comments[] = [];
       const docSnap = await getDocs(
@@ -36,7 +33,7 @@ function ProductDetail({ id }: { id: string }) {
           collection(db, 'comments'),
           orderBy('createdAt', 'desc'),
           // pID -> ID of product not productID
-          where('pID', '==', +id),
+          where('pID', '==', id),
         ),
       );
       docSnap.forEach((doc) => {
@@ -59,18 +56,19 @@ function ProductDetail({ id }: { id: string }) {
       listComments = convertCommentStyle(listComments);
       dispatch(fetchComments(listComments));
     };
-    fetchData();
     fetchCommentList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, []);
 
   return (
     <div>
       <div className="flex flex-col mt-20 lg:flex-row lg:mt-[140px] lg:gap-[30px]">
-        {product ? (
+        {product && (
           <>
             <GalleryDetail selectedColor={selectedColor} />
             <BaseInfo
+              sizes={sizes}
+              colors={colors}
               setSelectedColor={setSelectedColor}
               product={product}
               selectedColor={selectedColor}
@@ -78,8 +76,6 @@ function ProductDetail({ id }: { id: string }) {
               <ServiceInfo />
             </BaseInfo>
           </>
-        ) : (
-          <ProductDetailLoading />
         )}
       </div>
     </div>
