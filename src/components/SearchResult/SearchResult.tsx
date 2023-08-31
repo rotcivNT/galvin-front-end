@@ -1,6 +1,6 @@
 import { productAPI } from '~/api/productAPI';
 import ProductCard from '../ProductCard/ProductCard';
-import PaginationButton from './PaginationButton';
+import PaginationButton from '../Pagination/PaginationButton';
 
 const getProducts = async (query: string) => {
   const res = await productAPI.getSearchProduct(query);
@@ -16,7 +16,7 @@ async function SearchResult({ searchParams }: Props) {
   const query = searchParams.q.split('+').join(' ');
   const products = await getProducts(query);
   const page = searchParams.page || '1';
-  const perPage = 8;
+  const perPage = 12;
 
   // Bắt đầu và kết thúc -> get data
   const start = (Number(page) - 1) * perPage;
@@ -36,7 +36,7 @@ async function SearchResult({ searchParams }: Props) {
         </p>
         <div className="flex flex-wrap py-5 mx-[-8px]">
           {data.map((product: any) => (
-            <div className="basis-2/12 md:basis-3/12 xl:basis-4/12" key={product.id}>
+            <div className="basis-2/12 md:basis-3/12 xl:basis-3/12 animate-fadeIn" key={product.id}>
               <ProductCard
                 id={product.id}
                 productName={product.productName}

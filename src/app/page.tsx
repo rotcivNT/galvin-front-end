@@ -1,11 +1,18 @@
 import Image from 'next/image';
+import { voucherAPI } from '~/api/voucherAPI';
 import Brands from '~/components/sections/Brands';
 import HomeProductBanner from '~/components/sections/HomeProductBanner';
 import NewProduct from '~/components/sections/NewProduct';
 import PolicySection from '~/components/sections/PolicySection';
 import Voucher from '~/components/sections/Voucher';
 
-export default function Home() {
+const getAllVoucher = async () => {
+  const res = await voucherAPI.getAllVoucher();
+  return res.data.data;
+};
+
+export default async function Home() {
+  const vouchers = await getAllVoucher();
   return (
     <div className="lg:max-w-[960px] xl:max-w-6xl mx-auto">
       <div className="text-center">
@@ -21,7 +28,7 @@ export default function Home() {
       <div className="mx-5 md:mx-8">
         <PolicySection />
         <HomeProductBanner />
-        <Voucher />
+        <Voucher vouchers={vouchers} />
         <NewProduct />
         <Brands />
       </div>

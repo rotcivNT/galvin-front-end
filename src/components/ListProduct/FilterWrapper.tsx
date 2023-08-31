@@ -1,28 +1,25 @@
 'use client';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5';
 import { productAPI } from '~/api/productAPI';
 import { FilterProps } from '~/types';
 
 interface Props {
+  filter: any;
   setFilter: (filter: any) => void;
+  sizes: [];
+  colors: [];
 }
-function FilterWrapper({ setFilter }: Props) {
+
+function FilterWrapper({ setFilter, sizes, colors, filter }: Props) {
   const [isOpen, setIsOpen] = useState({
     size: false,
     color: false,
   });
-  const [sizeList, setSizeList] = useState<any>([]);
-  const [colorList, setColorList] = useState<any>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const sizeRes = await productAPI.getAllSize();
-      const colorRes = await productAPI.getAllColor();
-      setSizeList(sizeRes.data.data);
-      setColorList(colorRes.data.data);
-    };
-    fetchData();
-  }, []);
+  const router = useRouter();
+  const pathName = usePathname();
+
   const handleChecked = (type: string, value: number | string) => {
     setFilter((pre: FilterProps) => {
       const updated: FilterProps = { ...pre };
@@ -33,9 +30,12 @@ function FilterWrapper({ setFilter }: Props) {
       } else {
         updated.colorID = value;
       }
+      router.push(pathName);
+
       return updated;
     });
   };
+
   return (
     <div className="basis-3/12 font-mono">
       <div className="mb-5">
@@ -48,10 +48,13 @@ function FilterWrapper({ setFilter }: Props) {
         </h3>
         {isOpen.size ? (
           <ul className="mt-3">
-            {sizeList.map((item: any) => (
+            {sizes.map((item: any) => (
               <li className="flex items-center gap-2 mb-2" key={item.id}>
                 <input
-                  className="appearance-none w-5 h-5 border border-[#dbdbdb] checked:after:block after:content-['\2714'] after:text-sm after:hidden after:text-center after:leading-4"
+                  className={`appearance-none w-5 h-5 border border-[#dbdbdb] after:content-['\\2714'] 
+                  after:text-sm after:text-center after:leading-4 ${
+                    filter.sizeList.includes(item.id) ? `after:block` : 'after:hidden'
+                  }`}
                   type="checkbox"
                   onClick={() => handleChecked('size', item.id)}
                 />
@@ -75,17 +78,23 @@ function FilterWrapper({ setFilter }: Props) {
           <ul className="mt-3">
             <li className="flex items-center gap-2 mb-2">
               <input
-                className="appearance-none w-5 h-5 border border-[#dbdbdb] checked:after:block after:content-['\2714'] after:text-sm after:hidden after:text-center after:leading-4"
+                className={`appearance-none w-5 h-5 border border-[#dbdbdb] checked:after:block 
+                after:content-['\\2714'] after:text-sm after:text-center after:leading-4 ${
+                  filter.colorID == '' ? `after:block` : 'after:hidden'
+                }`}
                 type="radio"
                 name="color"
                 onClick={() => handleChecked('color', '')}
               />
               <span>Tất cả</span>
             </li>
-            {colorList.map((item: any) => (
+            {colors.map((item: any) => (
               <li className="flex items-center gap-2 mb-2" key={item.id}>
                 <input
-                  className="appearance-none w-5 h-5 border border-[#dbdbdb] checked:after:block after:content-['\2714'] after:text-sm after:hidden after:text-center after:leading-4"
+                  className={`appearance-none w-5 h-5 border border-[#dbdbdb] after:content-['\\2714'] 
+                  after:text-sm after:text-center after:leading-4 ${
+                    filter.colorID == item.id ? `after:block` : 'after:hidden'
+                  }`}
                   type="radio"
                   name="color"
                   onClick={() => handleChecked('color', item.id)}

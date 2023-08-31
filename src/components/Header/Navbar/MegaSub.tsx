@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Image from 'next/image';
 import Link from 'next/link';
 import { productAPI } from '~/api/productAPI';
 import ProductCard from '~/components/ProductCard/ProductCard';
@@ -34,7 +35,9 @@ async function MegaSub({ subItem }: { subItem: CategoryItemProps[] }) {
           </li> */}
           {subItem.map((item) => (
             <li key={item.id} className="flex items-center gap-2 pb-2">
-              <img
+              <Image
+                width={30}
+                height={30}
                 className="w-[30px] h-[30px] rounded-full border border-[#ccc]"
                 src={item.imagePath || ''}
                 alt={item.categoryName}

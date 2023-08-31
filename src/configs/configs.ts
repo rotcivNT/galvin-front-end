@@ -2,7 +2,7 @@ import axios from 'axios';
 require('dotenv').config();
 
 export const axiosClient = axios.create({
-  baseURL: 'http://localhost:3306/api',
+  baseURL: 'http://localhost:8080/api',
 });
 
 export const fireBaseConfig = {

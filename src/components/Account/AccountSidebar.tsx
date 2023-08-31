@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Button from '../Button/Button';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
 const btnData = [
   {
@@ -24,9 +24,10 @@ interface Props {
 }
 
 function AccountSidebar({ clickBtn, handleClick }: Props) {
+  const session = useSession();
   return (
     <div className="px-4 border-r border-[#d9d9d9]">
-      <h3 className="text-[30px] mb-5 font-bold font-mono">Ngọc Thắng</h3>
+      <h3 className="text-[30px] mb-5 font-bold font-mono">{session.data?.token.user.fullName}</h3>
       {btnData.map((btn) => (
         <div key={btn.id} className="mb-4">
           <Button
