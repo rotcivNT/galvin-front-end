@@ -20,6 +20,7 @@ function PaginationButton({ totalPages, currentPage, query }: Props) {
       <div className="justify-center flex gap-1">
         {pageNumbers.map((number) => (
           <Link
+            scroll={false}
             href={query ? `/search?q=${query}&page=${number}` : `?page=${number}`}
             className={`${
               currentPage == number

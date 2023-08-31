@@ -64,6 +64,7 @@ function Footer() {
         <div className="pt-8 text-center">
           {servicesData.map((item) => (
             <Link
+              scroll={false}
               className="text-white text-sm uppercase px-2 border-r border-[#999] last:border-none inline-block"
               href={item.href}
               key={item.title}
