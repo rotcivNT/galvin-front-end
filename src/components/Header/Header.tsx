@@ -44,6 +44,7 @@ function Header({ children }: { children: React.ReactNode }) {
           <ul className="hidden xl:flex items-center h-full">
             <li className="h-full">
               <Link
+                scroll={false}
                 className="w-[80px] h-full text-white font-medium text-sm text-center bg-[#514f4f] flex items-center justify-center "
                 href={'/'}
               >
@@ -52,6 +53,7 @@ function Header({ children }: { children: React.ReactNode }) {
             </li>
             <li className="h-full">
               <Link
+                scroll={false}
                 className="w-[80px] h-full text-white font-medium text-sm text-center hover:bg-[#514f4f] flex items-center justify-center transition duration-200"
                 href={'/'}
               >
