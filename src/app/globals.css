@@ -44,3 +44,6 @@ input::-webkit-inner-spin-button {
 body {
   font-family: PN;
 }
+html {
+  height: 100%;
+}
