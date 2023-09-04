@@ -6,8 +6,12 @@ import { FaPlus } from 'react-icons/fa';
 import { NavbarItemProps } from '~/types';
 import MobileSubMenu from './MobileSubMenu';
 
-function MobileMenuItem({ title, href, childItems, imagePath }: NavbarItemProps) {
-  const [open, setOpen] = useState(false);
+interface MobileMenuItemProps extends NavbarItemProps {
+  setOpen: (value: string) => void;
+}
+
+function MobileMenuItem({ title, href, childItems, imagePath, setOpen }: MobileMenuItemProps) {
+  const [openChild, setOpenChild] = useState(false);
 
   // Để space cuối
   let containerStyles = 'flex items-center justify-between my-1 ';
@@ -19,12 +23,12 @@ function MobileMenuItem({ title, href, childItems, imagePath }: NavbarItemProps)
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (childItems && childItems.length) {
       e.preventDefault();
-      setOpen((pre) => !pre);
+      setOpenChild((pre) => !pre);
     }
   };
   return (
     <>
-      <Link scroll={false} href={href} onClick={(e) => handleClick(e)} className={containerStyles}>
+      <Link href={href} onClick={(e) => handleClick(e)} className={containerStyles}>
         <div className="pl-2 flex items-center gap-4">
           <span className="text-sm text-[#2d2d2d] font-medium">{title}</span>
           {childItems && childItems.length !== 0 && <FaPlus />}
@@ -39,9 +43,10 @@ function MobileMenuItem({ title, href, childItems, imagePath }: NavbarItemProps)
       <MobileSubMenu
         title={title}
         href={''}
-        setOpen={setOpen}
+        setOpenChild={setOpenChild}
         childItems={childItems}
-        open={open}
+        open={openChild}
+        setOpen={setOpen}
       />
     </>
   );

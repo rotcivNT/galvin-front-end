@@ -38,9 +38,9 @@ function Header({ children }: { children: React.ReactNode }) {
       <div className="w-full bg-[#343631] fixed top-0 z-50">
         <div className="px-3 lg:px-0 max-w-6xl mx-5 md:mx-8 h-[50px] xl:mx-auto flex items-center lg:justify-between relative">
           <MobileMenu />
-          <div className="pl-4 lg:pl-0">
+          <Link href={'/'} className="block pl-4 lg:pl-0">
             <Image width={180} height={70} src={'/logo.webp'} priority={true} alt="Galvin Logo" />
-          </div>
+          </Link>
           <ul className="hidden xl:flex items-center h-full">
             <li className="h-full">
               <Link
@@ -76,11 +76,11 @@ function Header({ children }: { children: React.ReactNode }) {
                 icon={<FiUser />}
               />
             ) : (
-              <Link className="text-[26px] text-white" scroll={false} href="/account/info">
+              <Link className="text-[26px] text-white" href="/account/info">
                 <FiUser />
               </Link>
             )}
-            <Link className="text-[26px] text-white" scroll={false} href={'/'}>
+            <Link className="text-[26px] text-white" href={'/'}>
               <FiHeart />
             </Link>
             <div className="relative">

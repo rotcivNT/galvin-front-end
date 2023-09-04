@@ -9,7 +9,7 @@ function ProductCard({ id, productName, price, saleOff, thumbnail }: ProductCard
   const newPrice = formatVND(realPerPrice);
   const oldPrice = formatVND(price);
   return (
-    <Link scroll={false} className="mb-4 px-4 block font-[PNSemiBold]" href={`/product/${id}`}>
+    <Link className="mb-4 px-4 block font-[PNSemiBold]" href={`/product/${id}`}>
       <Image src={thumbnail} alt={productName} width={200} height={200} className="w-full" />
       <p className="text-sm text-[#2D2D2D] font-medium mt-3 h-10">{productName}</p>
       <p>

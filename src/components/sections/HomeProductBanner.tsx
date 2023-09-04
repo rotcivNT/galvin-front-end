@@ -12,7 +12,8 @@ const data = [
     imgPath: '/product-banner-2.webp',
     title: 'PREMIUM CAO CẤP',
     subTitle: 'MUA NGAY',
-    href: '',
+    // Redirect đến polo premium page
+    href: '/collection/8',
   },
 ];
 

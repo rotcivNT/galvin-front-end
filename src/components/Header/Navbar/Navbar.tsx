@@ -21,7 +21,15 @@ async function Navbar() {
           <NavbarItem
             title={category.categoryName}
             childItems={category.children}
-            href={`${typeof category.id == 'number' ? `/` : `${category.id}`}`}
+            href={`${
+              category?.children?.length !== 0
+                ? `/`
+                : `${
+                    typeof category.id === 'number'
+                      ? `/collections/${category.id}`
+                      : `${category.id}`
+                  }`
+            }`}
             key={category.categoryName}
           />
         ))}

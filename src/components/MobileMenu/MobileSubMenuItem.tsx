@@ -2,10 +2,14 @@
 import Link from 'next/link';
 import { NavbarItemProps } from '~/types';
 
-function MobileSubMenuItem({ title, href, imagePath }: NavbarItemProps) {
+interface Props extends NavbarItemProps {
+  setOpen: (value: string) => void;
+}
+
+function MobileSubMenuItem({ title, href, imagePath, setOpen }: Props) {
   return (
     <Link
-      scroll={false}
+      onClick={() => setOpen('translate-x-[calc(-100%-40px)]')}
       href={href}
       className="flex gap-3 items-center py-2 border-b-2 border-[#ebebeb]"
     >

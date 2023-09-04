@@ -1,6 +1,6 @@
 function AboutUsPage() {
   return (
-    <div className="lg:max-w-[960px] xl:max-w-6xl mx-5 md:mx-8 xl:mx-auto md:mt-[100px]">
+    <div className="min-h-[100vh] lg:max-w-[960px] xl:max-w-6xl mx-5 md:mx-8 xl:mx-auto md:mt-[100px]">
       <div className="py-[60px]">
         <h3 className="font-[SVN] text-[#252A2B] text-[36px] mb-2">BRAND STORY</h3>
         <div className="text-sm space-y-3">
