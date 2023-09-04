@@ -9,7 +9,7 @@ async function Page({ params }: { params: { query: string } }) {
   const decodeUrl = decodeURIComponent(params.query);
   const isConfirmed = await confirmToServer(decodeUrl);
   return (
-    <div className="my-[200px]">
+    <div className="min-h-[100vh]">
       <h3 className="uppercase text-xl font-mono text-center">
         {isConfirmed
           ? 'Xác nhận đơn hàng thành công! Galvin xin cảm ơn bạn đã mua hàng của shop'

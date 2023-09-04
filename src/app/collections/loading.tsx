@@ -1,6 +1,6 @@
 function Loading() {
   return (
-    <div className="lg:max-w-[960px] h-[100vh] xl:max-w-6xl mx-5 md:mx-8 xl:mx-auto flex items-center justify-center">
+    <div className="lg:max-w-[960px] h-[100vh] xl:max-w-6xl mx-5 md:mx-8 xl:mx-auto xl:mt-[160px] flex items-center justify-center">
       <svg
         className="animate-spin -ml-1 mr-3 h-10 w-10 text-black"
         xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +13,7 @@ function Loading() {
           cy="12"
           r="10"
           stroke="currentColor"
-          stroke-width="4"
+          strokeWidth="4"
         ></circle>
         <path
           className="opacity-75"

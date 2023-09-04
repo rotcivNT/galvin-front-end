@@ -1,9 +1,9 @@
 import Footer from '~/components/Footer/Footer';
 import Header from '~/components/Header/Header';
 import Navbar from '~/components/Header/Navbar/Navbar';
+import NextAuthProvider from '~/components/NextAuthProvider/NextAuthProvider';
 import AppProvider from '~/context/GlobalState';
 import './globals.css';
-import NextAuthProvider from '~/components/NextAuthProvider/NextAuthProvider';
 export const metadata = {
   title: 'Galvin',
   description: 'Store sales clothes',
