@@ -22,7 +22,6 @@ function HomeProductBanner() {
     <div className="flex items-center gap-4 flex-wrap sm:flex-nowrap">
       {data.map((item, index) => (
         <Link
-          scroll={false}
           href={item.href}
           className="relative basis-full sm:basis-6/12"
           key={index}

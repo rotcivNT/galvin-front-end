@@ -43,6 +43,7 @@ async function MegaSub({ subItem }: { subItem: CategoryItemProps[] }) {
                 alt={item.categoryName}
               />
               <Link
+                scroll={false}
                 className="text-sm text-black border-b border-[#ccc] py-2 transition-all hover:text-[#fcce6f]"
                 href={`/collections/${item.id}`}
               >

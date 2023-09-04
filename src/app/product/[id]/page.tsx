@@ -1,6 +1,5 @@
-import { Suspense } from 'react';
 import { productAPI } from '~/api/productAPI';
-import CommentWrapper from '~/components/Comment/CommentWrapper';
+import CommentWrapper from '~/components/Comment/CommentWrapper'; 
 import ProductDetail from '~/components/ProductDetail/ProductDetail';
 import RelatedProduct from '~/components/RelatedProduct/RelatedProduct';
 import { mergeColorProducts } from '~/utils/mergeColorProduct';

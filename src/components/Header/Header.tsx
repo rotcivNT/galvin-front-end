@@ -76,11 +76,11 @@ function Header({ children }: { children: React.ReactNode }) {
                 icon={<FiUser />}
               />
             ) : (
-              <Link className="text-[26px] text-white" href="/account/info">
+              <Link className="text-[26px] text-white" scroll={false} href="/account/info">
                 <FiUser />
               </Link>
             )}
-            <Link className="text-[26px] text-white" href={'/'}>
+            <Link className="text-[26px] text-white" scroll={false} href={'/'}>
               <FiHeart />
             </Link>
             <div className="relative">

@@ -28,7 +28,7 @@ function MobileMenuItem({ title, href, childItems, imagePath, setOpen }: MobileM
   };
   return (
     <>
-      <Link href={href} onClick={(e) => handleClick(e)} className={containerStyles}>
+      <Link scroll={false} href={href} onClick={(e) => handleClick(e)} className={containerStyles}>
         <div className="pl-2 flex items-center gap-4">
           <span className="text-sm text-[#2d2d2d] font-medium">{title}</span>
           {childItems && childItems.length !== 0 && <FaPlus />}
