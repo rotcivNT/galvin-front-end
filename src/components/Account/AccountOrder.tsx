@@ -41,6 +41,7 @@ function AccountOrder() {
                 >
                   <td className="p-3">
                     <Link
+                      scroll={false}
                       target="_blank"
                       className="text-blue-400"
                       href={`/account/order/${order.orderID}`}

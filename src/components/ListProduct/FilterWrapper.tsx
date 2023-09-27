@@ -41,7 +41,7 @@ function FilterWrapper({ setFilter, sizes, colors, filter }: Props) {
       <div className="mb-5">
         <h3
           onClick={() => setIsOpen((pre) => ({ ...pre, size: !pre.size }))}
-          className="text-2xl flex justify-between items-center font-medium cursor-pointer py-2 border-b border-[#eee]"
+          className="font-[SVN] text-2xl flex justify-between items-center font-medium cursor-pointer py-2 border-b border-[#eee]"
         >
           KÍCH THƯỚC
           <span className="text-lg">{isOpen.size ? <IoChevronUp /> : <IoChevronDown />}</span>
@@ -69,7 +69,7 @@ function FilterWrapper({ setFilter, sizes, colors, filter }: Props) {
       <div className="mb-5">
         <h3
           onClick={() => setIsOpen((pre) => ({ ...pre, color: !pre.color }))}
-          className="text-2xl flex justify-between items-center font-medium cursor-pointer py-2 border-b border-[#eee]"
+          className="font-[SVN] text-2xl flex justify-between items-center font-medium cursor-pointer py-2 border-b border-[#eee]"
         >
           MÀU SẮC
           <span className="text-lg">{isOpen.color ? <IoChevronUp /> : <IoChevronDown />}</span>

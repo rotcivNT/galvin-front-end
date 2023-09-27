@@ -45,7 +45,7 @@ function ListProduct({ categoryID, filter, searchParams }: Props) {
 
   return (
     <>
-      <div className="flex flex-wrap basis-9/12">
+      <div className="flex flex-wrap basis-9/12 justify-center">
         {loading
           ? Array(6)
               .fill(0)
@@ -70,7 +70,9 @@ function ListProduct({ categoryID, filter, searchParams }: Props) {
                 )),
               )}
         {products.length > 0 && (
-          <PaginationButton totalPages={totalPages} currentPage={Number(page)} />
+          <div className="mt-5">
+            <PaginationButton totalPages={totalPages} currentPage={Number(page)} />
+          </div>
         )}
       </div>
     </>

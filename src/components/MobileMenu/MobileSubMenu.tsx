@@ -5,13 +5,13 @@ import MobileSubMenuItem from './MobileSubMenuItem';
 import { BsArrowLeft } from 'react-icons/bs';
 
 interface MobileSubMenuProps extends NavbarItemProps {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenChild: (value: boolean) => void;
   open: boolean;
+  setOpen: (value: string) => void;
 }
 
-function MobileSubMenu({ title, childItems, setOpen, open }: MobileSubMenuProps) {
+function MobileSubMenu({ title, childItems, setOpen, setOpenChild, open }: MobileSubMenuProps) {
   const isOpen = open ? 'translate-x-0' : 'translate-x-[calc(-100%-42px)]';
-
   return (
     <div
       className={`transition-all duration-300 fixed top-0 bottom-0 left-0 
@@ -30,12 +30,13 @@ function MobileSubMenu({ title, childItems, setOpen, open }: MobileSubMenuProps)
             key={item.id}
             title={item.categoryName}
             imagePath={item.imagePath || ''}
-            href={`${item.id}`}
+            href={`/collections/${item.id}`}
+            setOpen={setOpen}
           />
         ))}
       </div>
       <div
-        onClick={() => setOpen((pre) => !pre)}
+        onClick={() => setOpenChild(false)}
         className="absolute top-0 right-[-40px] w-10 h-10 bg-[#fbae40] flex items-center justify-center"
       >
         <BsArrowLeft className="text-[22px] text-white" />

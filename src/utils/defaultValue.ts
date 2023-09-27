@@ -1,7 +1,7 @@
 export const staticCategory = [
   // id đại diện cho path -> trùng với dynamic category
   {
-    categoryName: 'FLASH SALE',
+    categoryName: 'TRANG CHỦ',
     id: '/',
     children: [],
     imagePath:

@@ -67,9 +67,10 @@ function MobileMenu() {
               <MobileMenuItem
                 key={item.categoryName}
                 title={item.categoryName}
-                href={`${item.id}`}
+                href={`${typeof item.id == 'number' ? `/` : `${item.id}`}`}
                 imagePath={item.imagePath || ''}
                 childItems={item.children}
+                setOpen={setOpen}
               />
             );
           })}

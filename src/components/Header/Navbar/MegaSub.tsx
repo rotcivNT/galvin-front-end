@@ -55,13 +55,15 @@ async function MegaSub({ subItem }: { subItem: CategoryItemProps[] }) {
       </div>
       <div className="basis-9/12 flex">
         <div className="basis-4/12 px-5">
-          <ProductCard
-            id={product[0].id}
-            productName={product[0].productName}
-            price={product[0].price}
-            saleOff={product[0].saleOff}
-            thumbnail={product[0].thumbnail}
-          />
+          {product[0] && (
+            <ProductCard
+              id={product[0].id}
+              productName={product[0].productName}
+              price={product[0].price}
+              saleOff={product[0].saleOff}
+              thumbnail={product[0].thumbnail}
+            />
+          )}
         </div>
       </div>
     </li>
