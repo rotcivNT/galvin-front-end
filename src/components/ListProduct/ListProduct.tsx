@@ -17,7 +17,7 @@ function ListProduct({ categoryID, filter, searchParams }: Props) {
   const [totalPages, setTotalPages] = useState(0);
 
   const page = searchParams.page || '1';
-  const perPage = 1;
+  const perPage = 12;
 
   // Bắt đầu và kết thúc -> get data
   const start = (Number(page) - 1) * perPage;
