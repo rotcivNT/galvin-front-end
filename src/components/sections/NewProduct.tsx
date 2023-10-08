@@ -8,6 +8,7 @@ const getNewProduct = async () => {
 
 async function NewProduct() {
   const productList = await getNewProduct();
+
   return (
     <div>
       <h3 className="text-center text-[40px] font-medium mb-8">

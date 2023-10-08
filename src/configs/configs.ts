@@ -2,7 +2,7 @@ import axios from 'axios';
 require('dotenv').config();
 
 export const axiosClient = axios.create({
-  baseURL: 'https://galvin-api.onrender.com/api',
+  baseURL: 'http://localhost:8080/api',
 });
 
 export const fireBaseConfig = {
