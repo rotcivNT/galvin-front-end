@@ -24,7 +24,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
       const res = await userAPI.getProdutCart(session.data?.token.user.id);
       dispatch(setQuantityCart(res.data.data.length));
     };
-    fetchProductCart();
+    if (session.data?.token.user.id) {
+      fetchProductCart();
+    }
   }, [session.data]);
   return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
 };
