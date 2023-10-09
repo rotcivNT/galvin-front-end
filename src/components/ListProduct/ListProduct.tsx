@@ -10,8 +10,9 @@ interface Props {
   categoryID: number;
   filter: FilterProps;
   searchParams: { [key: string]: string };
+  children: React.ReactNode;
 }
-function ListProduct({ categoryID, filter, searchParams }: Props) {
+function ListProduct({ categoryID, filter, searchParams, children }: Props) {
   const [products, setProducts] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(0);
@@ -67,7 +68,7 @@ function ListProduct({ categoryID, filter, searchParams }: Props) {
           ))}
         {products.length > 0 && (
           <div className="mt-5">
-            <PaginationButton totalPages={totalPages} currentPage={Number(page)} />
+           {children}
           </div>
         )}
       </div>

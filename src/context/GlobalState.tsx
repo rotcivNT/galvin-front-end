@@ -1,14 +1,11 @@
 'use client';
 
-import { Dispatch, createContext, useEffect, useReducer } from 'react';
-import reducer, { Action, initState } from './reducer/reducer';
-import { Comments, ReducerInitState } from '~/types';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
-import { db } from '~/utils/initFirebaseStore';
-import { fetchComments, setQuantityCart } from './reducer/actions';
-import { convertCommentStyle } from '~/utils/convertCommentStyle';
-import { userAPI } from '~/api/userAPI';
 import { useSession } from 'next-auth/react';
+import { Dispatch, createContext, useEffect, useReducer } from 'react';
+import { userAPI } from '~/api/userAPI';
+import { ReducerInitState } from '~/types';
+import { setQuantityCart } from './reducer/actions';
+import reducer, { Action, initState } from './reducer/reducer';
 
 const AppContext = createContext<{ state: ReducerInitState; dispatch: Dispatch<Action> }>({
   state: initState,
@@ -21,8 +18,10 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const fetchProductCart = async () => {
-      const res = await userAPI.getProdutCart(session.data?.token.user.id);
-      dispatch(setQuantityCart(res.data.data.length));
+      if (session.data?.token.user.id) {
+        const res = await userAPI.getProdutCart(session.data?.token.user.id);
+        dispatch(setQuantityCart(res.data.data.length));
+      }
     };
     if (session.data?.token.user.id) {
       fetchProductCart();
