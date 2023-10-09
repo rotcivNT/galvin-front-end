@@ -1,7 +1,6 @@
-import { Suspense } from 'react';
 import { productAPI } from '~/api/productAPI';
 import ListProductWrapper from '~/components/ListProduct';
-import Loading from '../loading';
+import PaginationButton from '~/components/Pagination/PaginationButton';
 
 const getColorsAndSizes = async () => {
   const sizeRes = await productAPI.getAllSize();
@@ -22,14 +21,14 @@ async function Page({
   const { sizes, colors } = await getColorsAndSizes();
   return (
     <div>
-      <Suspense fallback={<Loading />}>
-        <ListProductWrapper
-          sizes={sizes}
-          colors={colors}
-          searchParams={searchParams}
-          type={+params.type}
-        />
-      </Suspense>
+      <ListProductWrapper
+        sizes={sizes}
+        colors={colors}
+        searchParams={searchParams}
+        type={+params.type}
+      >
+        <PaginationButton totalPages={10} currentPage={Number(9)} />
+      </ListProductWrapper>
     </div>
   );
 }

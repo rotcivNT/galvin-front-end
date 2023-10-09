@@ -8,8 +8,9 @@ interface Props {
   searchParams: { [key: string]: string };
   sizes: [];
   colors: [];
+  children: React.ReactNode;
 }
-function ListProductWrapper({ type, searchParams, sizes, colors }: Props) {
+function ListProductWrapper({ type, searchParams, sizes, colors, children }: Props) {
   const [filter, setFilter] = useState<FilterProps>({
     sizeList: [],
     colorID: '',
@@ -18,7 +19,9 @@ function ListProductWrapper({ type, searchParams, sizes, colors }: Props) {
   return (
     <div className="flex mb-10 flex-col lg:flex-row">
       <FilterWrapper filter={filter} sizes={sizes} colors={colors} setFilter={setFilter} />
-      <ListProduct searchParams={searchParams} categoryID={type} filter={filter} />
+      <ListProduct searchParams={searchParams} categoryID={type} filter={filter}>
+        {children}
+      </ListProduct>
     </div>
   );
 }
