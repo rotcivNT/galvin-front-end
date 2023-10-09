@@ -23,7 +23,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
         dispatch(setQuantityCart(res.data.data.length));
       }
     };
-    fetchProductCart();
+    if (session.data?.token.user.id) {
+      fetchProductCart();
+    }
   }, [session.data]);
   return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>;
 };

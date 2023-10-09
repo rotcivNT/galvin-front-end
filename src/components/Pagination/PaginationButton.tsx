@@ -7,6 +7,7 @@ interface Props {
 }
 function PaginationButton({ totalPages, currentPage, query }: Props) {
   const pageNumbers: any[] = [];
+
   for (let i: number = currentPage - 3; i <= currentPage + 3; i++) {
     if (i < 1) continue;
     if (i > totalPages) break;
