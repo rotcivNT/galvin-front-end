@@ -17,7 +17,7 @@ function ListProduct({ categoryID, filter, searchParams }: Props) {
   const [totalPages, setTotalPages] = useState(0);
 
   const page = searchParams.page || '1';
-  const perPage = 1;
+  const perPage = 12;
 
   // Bắt đầu và kết thúc -> get data
   const start = (Number(page) - 1) * perPage;
@@ -54,21 +54,17 @@ function ListProduct({ categoryID, filter, searchParams }: Props) {
                   <ProductLoadingSke />
                 </div>
               ))
-          : Array(6)
-              .fill(0)
-              .map((_, index) =>
-                products.map((product: any) => (
-                  <div className="basis-4/12 animate-fadeIn" key={product.productID}>
-                    <ProductCard
-                      id={product.id}
-                      productName={product.productName}
-                      price={product.price}
-                      saleOff={product.saleOff}
-                      thumbnail={product.thumbnail}
-                    />
-                  </div>
-                )),
-              )}
+          : products.map((product: any) => (
+            <div className="basis-4/12 animate-fadeIn" key={product.productID}>
+              <ProductCard
+                id={product.id}
+                productName={product.productName}
+                price={product.price}
+                saleOff={product.saleOff}
+                thumbnail={product.thumbnail}
+              />
+            </div>
+          ))}
         {products.length > 0 && (
           <div className="mt-5">
             <PaginationButton totalPages={totalPages} currentPage={Number(page)} />

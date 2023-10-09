@@ -32,4 +32,7 @@ export const productAPI = {
   getSearchProduct: (query: string) => {
     return axiosClient.get(`/search?q=${query}`);
   },
+  getSizeProductByCateID: (categoryId: string) => {
+    return axiosClient.get(`/get-size-product-by-cateid/${categoryId}`);
+  },
 };
