@@ -19,6 +19,7 @@ async function Page({
   searchParams: { [key: string]: string };
 }) {
   const { sizes, colors } = await getColorsAndSizes();
+  const page = searchParams.page || '1';
   return (
     <div>
       <ListProductWrapper
@@ -27,7 +28,7 @@ async function Page({
         searchParams={searchParams}
         type={+params.type}
       >
-        <PaginationButton totalPages={10} currentPage={Number(9)} />
+        <PaginationButton totalPages={10} currentPage={Number(page)} />
       </ListProductWrapper>
     </div>
   );
