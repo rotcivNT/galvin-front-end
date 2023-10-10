@@ -122,7 +122,6 @@ function CartModal({ open, setOpen }: Props) {
             <span className="font-semibold text-red-500">{formatVND(totalPrice)}</span>
           </div>
           <Link
-            scroll={false}
             href="/cart"
             onClick={() => setOpen(TypeModal.NONE)}
             className="inline-block uppercase text-xs text-white min-w-[200px] text-center bg-black rounded-2xl mt-5 py-[6px]"

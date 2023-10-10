@@ -1,6 +1,5 @@
 import { productAPI } from '~/api/productAPI';
 import ListProductWrapper from '~/components/ListProduct';
-import PaginationButton from '~/components/Pagination/PaginationButton';
 
 const getColorsAndSizes = async () => {
   const sizeRes = await productAPI.getAllSize();
@@ -19,7 +18,6 @@ async function Page({
   searchParams: { [key: string]: string };
 }) {
   const { sizes, colors } = await getColorsAndSizes();
-  const page = searchParams.page || '1';
   return (
     <div>
       <ListProductWrapper
@@ -27,9 +25,7 @@ async function Page({
         colors={colors}
         searchParams={searchParams}
         type={+params.type}
-      >
-        <PaginationButton totalPages={10} currentPage={Number(page)} />
-      </ListProductWrapper>
+      />
     </div>
   );
 }

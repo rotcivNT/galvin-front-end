@@ -34,7 +34,6 @@ function NavbarItem({ title, childItems, href, imagePath }: NavbarItemProps) {
   return (
     <li className={` text-white ${styles.navbarItem}`}>
       <Link
-        scroll={false}
         className="text-sm font-semibold px-5 py-4 text-center  flex items-center gap-2"
         href={href}
       >
