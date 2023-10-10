@@ -87,6 +87,19 @@ function BaseInfo({
   };
 
   const handleAddProductToCart = async () => {
+    const cartJson = localStorage.getItem('carts');
+    const productCarts = cartJson ? JSON.parse(cartJson) : [];
+    const payload = {
+      productID: product.productID,
+      price: product.price,
+      thumbnail: product.thumbnail,
+      colorValue: getValueByColorID(selectedColor[0].colorID),
+      sizeValue: selectedSize.value,
+      quantity: quantity,
+      productName: product.productName,
+      saleOff: product.saleOff,
+      userID: session.data?.token.user.id,
+    };
     if (!selectedSize.value) {
       setErr('Vui lòng chọn size');
       return;
@@ -96,25 +109,25 @@ function BaseInfo({
       return;
     }
     if (session.status === 'unauthenticated') {
-      setErr('Bạn phải đăng nhập để mua hàng');
+      const exists = productCarts.find((product: any) => {
+        if (product.productID === payload.productID && product.sizeValue === payload.sizeValue) {
+          product.quantity += payload.quantity;
+          return true;
+        }
+        return false;
+      });
+      if (!exists) {
+        productCarts.push(payload);
+        dispatch(incQuantityCart());
+      }
+      localStorage.setItem('carts', JSON.stringify(productCarts));
       return;
     }
-    setErr('');
-    const payload = {
-      productID: product.productID,
-      price: product.price,
-      thumbnail: product.thumbnail,
-      colorValue: getValueByColorID(selectedColor[0].colorID),
-      sizeValue: selectedSize.value,
-      quantity: quantity,
-      userID: session.data?.token.user.id,
-      productName: product.productName,
-      saleOff: product.saleOff,
-    };
-
-    const res = await userAPI.addProductToCart(payload);
-    if (res.data.code === 0) {
-      dispatch(incQuantityCart());
+    if (session.status === 'authenticated') {
+      const res = await userAPI.addProductToCart(payload);
+      if (res.data.code === 0) {
+        dispatch(incQuantityCart());
+      }
     }
   };
 

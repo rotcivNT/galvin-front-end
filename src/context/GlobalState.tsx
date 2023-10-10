@@ -18,10 +18,16 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const fetchProductCart = async () => {
+      let cartQty = 0;
       if (session.data?.token.user.id) {
         const res = await userAPI.getProdutCart(session.data?.token.user.id);
-        dispatch(setQuantityCart(res.data.data.length));
+        cartQty = res.data.data.length;
+      } else {
+        const cartsJson = localStorage.getItem('carts');
+        const carts = cartsJson ? JSON.parse(cartsJson) : [];
+        cartQty = carts.length;
       }
+      dispatch(setQuantityCart(cartQty));
     };
     if (session.data?.token.user.id) {
       fetchProductCart();
