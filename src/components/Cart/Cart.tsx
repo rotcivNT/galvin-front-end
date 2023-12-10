@@ -13,16 +13,21 @@ import { useRouter } from 'next/navigation';
 import { useAppContext } from '~/context/useAppContext';
 import { setQuantityCart } from '~/context/reducer/actions';
 import EmptyCart from './EmptyCart';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schema } from '../Modal/AuthModal/constants';
+import Button from '../Button';
 
 function Cart() {
   const session = useSession();
-  const { register, setValue, handleSubmit } = useForm();
+  const { register, setValue, handleSubmit, formState } = useForm();
   const [payment, setPayment] = useState('');
   const [products, setProducts] = useState<any>([]);
   const [voucherSelected, setVoucherSelected] = useState(0);
   const { dispatch } = useAppContext();
   const router = useRouter();
   const onSubmit = async (data: any) => {
+    console.log('onClick');
+
     const totalDue =
       30000 +
       products.reduce((pre: number, cur: any) => {
@@ -39,26 +44,36 @@ function Cart() {
       email: data.email,
       userID: session.data?.token.user.id,
     };
+
     const res = await orderAPI.createOrder(payload);
+
     if (res.data.code === 0) {
       router.push('/order/success');
-      const res = await userAPI.deleteProductCartByUserID(session.data?.token.user.id);
-      if (res.data.code === 0) {
+      if (session.status === 'authenticated') {
+        const res = await userAPI.deleteProductCartByUserID(session.data?.token.user.id);
+        if (res.data.code === 0) {
+          dispatch(setQuantityCart(0));
+        }
+      } else if (session.status === 'unauthenticated') {
+        localStorage.removeItem('carts');
         dispatch(setQuantityCart(0));
       }
     }
   };
+
   useEffect(() => {
     const fetchProducts = async () => {
       const res = await userAPI.getProdutCart(session.data?.token.user.id);
       setProducts(res.data.data);
     };
-    if (session.data) {
+    if (session.status == 'authenticated' && session.data) {
       setValue('fullName', session.data.token.user.fullName);
       setValue('email', session.data.token.user.email);
       setValue('phone', session.data.token.user.phone);
-      setValue('address', session.data.token.user.address);
       fetchProducts();
+    } else {
+      const productsCart = JSON.parse(localStorage.getItem('carts') || '[]');
+      setProducts(productsCart);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session.data]);
@@ -69,17 +84,17 @@ function Cart() {
         <h3 className="mx-2 mb-3">Thông tin vận chuyển</h3>
         <div className="flex">
           <div className="basis-6/12 px-2">
-            <Input register={register} id="fullName" />
+            <Input placeholder="Họ và tên" register={register} id="fullName" />
           </div>
           <div className="basis-6/12 px-2">
-            <Input register={register} id="phone" />
+            <Input placeholder="Số điện thoại" register={register} id="phone" />
           </div>
         </div>
         <div className="px-2">
-          <Input register={register} id="email" />
+          <Input placeholder="Email" register={register} id="email" />
         </div>
         <div className="px-2">
-          <Input register={register} id="address" />
+          <Input placeholder="Địa chỉ giao hàng" register={register} id="address" />
         </div>
         <div className="px-2">
           <Input
