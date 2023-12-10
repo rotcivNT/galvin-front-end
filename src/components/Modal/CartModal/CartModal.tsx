@@ -49,7 +49,13 @@ function CartModal({ open, setOpen }: Props) {
     setLoading(false);
   };
   useEffect(() => {
-    fetchData();
+    if (session.status === 'unauthenticated') {
+      const productsCart = JSON.parse(localStorage.getItem('carts') || '[]');
+      setProducts(productsCart);
+      setLoading(false);
+    } else {
+      fetchData();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     totalPrice = products.reduce((pre: number, cur: any) => {
       return pre + cur.price * cur.quantity;
@@ -72,7 +78,7 @@ function CartModal({ open, setOpen }: Props) {
         <div className="px-4">
           {loading ? (
             [1, 2, 3, 4].map((item) => <LoadingSkeleton key={item} />)
-          ) : products.length !== 0 ? (
+          ) : products && products.length !== 0 ? (
             products.map((product) => (
               <div
                 key={product.colorValue + product.sizeValue + product.productName}

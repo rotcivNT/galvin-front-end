@@ -22,11 +22,7 @@ function Header({ children }: { children: React.ReactNode }) {
     setOpenMobileSearch((pre) => !pre);
   };
   const handleOpenCart = () => {
-    if (session.status === 'authenticated') {
-      setOpenModal(TypeModal.CART_MODAL);
-    } else {
-      setOpenModal(TypeModal.LOGIN);
-    }
+    setOpenModal(TypeModal.CART_MODAL);
   };
   useEffect(() => {
     if (session.status === 'authenticated') {
